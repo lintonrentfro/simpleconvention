@@ -1,0 +1,49 @@
+<h4>Purchase a Convention Badge For Yourself</h4>
+<p>You can register and purchase badges for kids <a href="localhost/?mybadges">here</a>.</p>
+<p>
+    <?php
+        htmlout($user_info['first_name']);
+        echo ' ';
+        htmlout($user_info['last_name']);
+        echo '<br>';
+        htmlout($user_info['address1']);
+        echo ', ';
+        htmlout($user_info['address2']);
+        echo '<br>';
+        htmlout($user_info['city']);
+        echo ', ';
+        htmlout($user_info['state']);
+        echo ' ';
+        htmlout($user_info['zip']);
+    ?>
+</p>
+<!-- to display errors returned by createToken -->
+<span class="payment-errors"></span>
+
+<form class="form-horizontal" action="" method="POST" id="payment-form">
+    <div class="control-group"><div class="form-row">
+        <label class="control-label">Card Number</label>
+        <div class="controls">
+            <input type="text" size="20" autocomplete="off" class="card-number" />
+        </div></div>
+    </div>
+    <div class="control-group"><div class="form-row">
+        <label class="control-label">CVC</label>
+        <div class="controls">
+            <input type="text" autocomplete="off" class="card-cvc input-mini" />
+        </div></div>
+    </div>
+    <div class="control-group"><div class="form-row">
+        <label class="control-label">Expiration (MM/YYYY)</label>
+        <div class="controls">
+            <input type="text" size="2" class="card-expiry-month input-mini"/>
+            <span> / </span>
+            <input type="text" size="4" class="card-expiry-year input-mini"/>
+        </div></div>
+    </div>
+    <div class="control-group"><div class="form-row">
+        <div class="controls">
+            <button class="btn submit-button" type="submit" value="charge_card" name="action">Purchase Convention Badge for <?php echo $price; ?></button>
+        </div>
+    </div></div>
+</form>

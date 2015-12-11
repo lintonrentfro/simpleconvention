@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /bootstrap/
+Disallow: /event_admin/
+Disallow: /img/
+Disallow: /js/
+Disallow: /registration_admin/
+Disallow: /schedule/
+Disallow: /store_admin/
+Disallow: /temp/

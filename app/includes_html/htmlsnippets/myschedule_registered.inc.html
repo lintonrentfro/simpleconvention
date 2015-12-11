@@ -1,0 +1,46 @@
+                    <h5>Events I'm Attending</h5>
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Location</th>
+                                <th>Start/End</th>
+                                <th>Signed-Up</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($events_registered as $event_r): ?>
+                        <tr>
+                            <form action="?" method="post">
+                            <td><a href="/?id=<?php echo $event_r['id']; ?>&action=event"><?php htmlout($event_r['name']); ?></a></td>
+                            <td><?php 
+                                    htmlout($event_r['building']);
+                                    echo '<br>';
+                                    htmlout($event_r['room']); ?></td>
+                            <td><?php 
+                                    htmlout(date("m/d g:i a", strtotime($event_r['start'])));
+                                    echo '<br>';
+                                    htmlout(date("m/d g:i a", strtotime($event_r['end']))); ?></td>
+                            <td><?php 
+                                    if ($event_r['registration_required'] == 1) {
+                                        htmlout($event_r['currentusers']); 
+                                        echo ' / ';
+                                        htmlout($event_r['maxusers']); 
+                                    }
+                                    else {
+                                        echo 'n/a';
+                                    } ?></td>
+                            <td><input type="hidden" name="id" value="<?php echo $event_r['id']; ?>">
+                                <?php 
+                                    if ($event_r['registration_required'] == 1) {
+                                        echo '<button class="btn btn-mini"  type="submit" value="un_register_for_event"
+                                            name="action" title="de-register">de-register</button>';
+                                    }
+                                    else {
+                                        echo '<button class="btn btn-mini"  type="submit" value="remove_event_from_itinerary"
+                                            name="action" title="remove from itinerary">remove</button>'; 
+                                    } ?></td>
+                            </form>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>

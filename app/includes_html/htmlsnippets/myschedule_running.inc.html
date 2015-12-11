@@ -1,0 +1,38 @@
+                    <h5>Events I'm Running</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Location</th>
+                                <th>Start/End</th>
+                                <th>Signed-Up</th>
+                                <th>Status</th>
+                            </tr>
+                         </thead>
+                        <?php foreach ($events_running as $event_ru): ?>
+                        <tr>
+                            <form action="?" method="post">
+                                <td><a href="/?id=<?php echo $event_ru['id']; ?>&action=event"><?php htmlout($event_ru['name']); ?></a></td>
+                                <td><?php 
+                                        htmlout($event_ru['building']);
+                                        echo '<br>';
+                                        htmlout($event_ru['room']); ?></td>
+                                <td><?php 
+                                        htmlout(date("m/d g:i a", strtotime($event_ru['start'])));
+                                        echo '<br>';
+                                        htmlout(date("m/d g:i a", strtotime($event_ru['end']))); ?></td>
+                                <td><?php 
+                                        htmlout($event_ru['currentusers']); 
+                                        echo ' / ';
+                                        htmlout($event_ru['maxusers']); 
+                                        ?></td>
+                                <td><?php
+                                        if ($event_ru['status'] == 'pending approval') {
+                                            echo 'pending approval'; }
+                                        if ($event_ru['status'] == 'on schedule - all clear') {
+                                            echo 'approved'; }
+                                        ?></td>
+                            </form>
+                        </tr>
+                    <?php endforeach; ?>
+                    </table>

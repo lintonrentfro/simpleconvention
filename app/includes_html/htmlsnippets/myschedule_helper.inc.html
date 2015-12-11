@@ -1,0 +1,27 @@
+                    <h5>My Convention Duties</h5>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Location</th>
+                                <th>Start/End</th>
+                                <th>Description</th>
+                            </tr>
+                         </thead>
+                        <?php foreach ($events_helper as $event_h): ?>
+                        <tr>
+                            <form action="?" method="post">
+                            <td><a href="/?id=<?php echo $event_h['events.id']; ?>&action=event"><?php htmlout($event_h['events.name']); ?></a></td>
+                            <td><?php 
+                                    htmlout($event_h['events.building']);
+                                    echo '<br>';
+                                    htmlout($event_h['events.room']); ?></td>
+                            <td><?php 
+                                    htmlout(date("m/d g:i a", strtotime($event_h['duty_roster.start'])));
+                                    echo '<br>';
+                                    htmlout(date("m/d g:i a", strtotime($event_h['duty_roster.end']))); ?></td>
+                            <td><?php htmlout($event_h['duty_roster.description']); ?></td>
+                            </form>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>

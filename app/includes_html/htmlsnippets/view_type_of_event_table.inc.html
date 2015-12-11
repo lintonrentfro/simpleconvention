@@ -1,0 +1,61 @@
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Start/End</th>
+                                <th>Seats Left</th>
+                                <th>Registration</th>
+                            </tr>
+                        </thead>
+                        <?php foreach ($events as $event): ?>
+                        <tr>
+                            <td><a href="/?id=<?php echo $event['id']; ?>&action=event"><?php htmlout($event['name']); ?></a></td>
+                            <td><?php 
+                                    htmlout(date("m/d g:i a", strtotime($event['start']))); 
+                                    echo '<br>';
+                                    htmlout(date("m/d g:i a", strtotime($event['end']))); ?>
+                            </td>
+                            <td><?php 
+                                    if ($event['registration_required'] == 1) {
+                                        $taken = $event['maxusers'] - $event['currentusers'];
+                                        htmlout($taken); }
+                                    else {
+                                        echo 'n/a'; } ?>
+                            </td>
+                            <td>
+                                <form action="?" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $event['id']; ?>">
+                                <?php 
+                                    if (!isset($registered_events)) {
+                                        $registered_events = array();
+                                    }
+                                    if ($event['registration_required'] == 1) {
+                                        if (in_array($event['id'], $registered_events)) {
+                                            echo 'you are registered';
+                                        }
+                                        else {
+                                            $seats_left = $event['maxusers'] - $event['currentusers'];
+                                            if ($seats_left > 0) {
+                                                echo '<button class="btn btn-mini"  type="submit" value="register_for_event" 
+                                                    name="action" title="register">register</button>'; 
+                                            }
+                                            else {
+                                                echo '<button class="btn btn-mini"  type="submit" value="overflow_notification" 
+                                                    name="action" title="make more events like this!">request</button>';
+                                            }
+                                        }
+                                    }
+                                    if ($event['registration_required'] == 0) {
+                                        if (in_array($event['id'], $registered_events)) {
+                                            echo 'on your schedule';
+                                        }
+                                        else {
+                                            echo '<button class="btn btn-mini"  type="submit" value="put_event_on_itinerary" 
+                                                    name="action" title="put on schedule">put on schedule</button>';
+                                        }
+                                    } ?>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>

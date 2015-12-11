@@ -1,0 +1,57 @@
+<!-- Button to trigger modal -->
+<a href="#kidbadge" role="button" data-toggle="modal">buy</a>
+<!-- Modal -->
+<div id="kidbadge" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form class="form-horizontal" action="" method="POST" id="payment-form">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">
+                <?php
+                    if (($con_info['free_badge_on'] == 0) and ($con_info['kid_badge_on'] == 0)) {
+                        echo 'Purchase Badge for Child for ' . $kidprice;
+                    } ?>
+            </h3>
+        </div>
+        <div class="modal-body">
+            <span class="payment-errors"></span>
+            
+            <div class="control-group"><div class="form-row">
+                <label class="control-label" for="childID">Child:</label>
+                <div class="controls">
+                    <select name="childID" id="childID">
+                        <option value="">select one</option>
+                        <?php foreach ($kids as $kid): ?>
+                        <option value="<?php echo $kid['id']; ?>"><?php htmlout($kid['first_name']); echo ' '; htmlout($kid['last_name']); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div></div>
+            
+            <div class="control-group"><div class="form-row">
+                <label class="control-label">Card Number</label>
+                <div class="controls">
+                    <input type="text" size="20" autocomplete="off" class="card-number" />
+                </div>
+            </div></div>
+            <div class="control-group"><div class="form-row">
+                <label class="control-label">CVC</label>
+                <div class="controls">
+                    <input type="text" autocomplete="off" class="card-cvc input-mini" />
+                </div>
+            </div></div>
+            <div class="control-group"><div class="form-row">
+                <label class="control-label">Expiration (MM/YYYY)</label>
+                <div class="controls">
+                    <input type="text" size="2" class="card-expiry-month input-mini"/>
+                    <span> / </span>
+                    <input type="text" size="4" class="card-expiry-year input-mini"/>
+                </div>
+            </div></div>
+               
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+            <button class="btn" type="submit" value="charge_card" name="action" title="buy">buy</button>
+        </div>
+    </form>
+</div>
